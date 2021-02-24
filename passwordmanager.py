@@ -34,7 +34,7 @@ def login():
         # Quit option
         elif choice ==3:
             print("Thank you for using SmartPass, bye now")
-            end
+            exit()
 
         else:
             print("Invalid input, please try again")
@@ -68,7 +68,7 @@ def main():
                     print("{}. {}".format(i + 1, PasswordList[i]))
                     i += 1
                 kachow = input("Please enter the password that you want to remove: ")
-                PasswordList.remove("kachow")
+                PasswordList.remove(kachow)
 
             # Logout and quit program
             if choice ==4:
