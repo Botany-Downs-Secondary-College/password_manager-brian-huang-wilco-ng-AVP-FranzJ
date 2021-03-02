@@ -2,6 +2,8 @@
 # make and show passwords
 # Brian =^._.^=
 
+import re
+
 logins = {}
 
 class PasswordManager():
@@ -43,10 +45,22 @@ class PasswordManager():
             self.cya_lol()
 
 
+    def password_check(self, pw):
+        password_regex = re.compile(r"""
+                                    (?=.*[A-Z]) # must match atleast 1 Upper
+                                    (?=.*[a-z]) # must match atleast 1 Lower
+                                    (?=.*\d)    # must match atleast 1 Digit
+                                    .{8,}       # must match 8 of the above
+                                    """, re.VERBOSE)
+        if password_regex.search(pw) == None:
+            return False
+        else:
+            return True
 
     
     def create_login(self):
         create_name = True
+        create_pass = True
 
         while create_name == True:
             username = input("What would you like your username to be? ")
@@ -54,7 +68,20 @@ class PasswordManager():
                 print("Username %s already exists." % (username))
                 continue
             create_name = False
-            
+    
+        while create_pass == True:
+            password = input("Please input the password for the username "
+                             "(Password must include at least 1 uppercase, "
+                             "1 lowercase and 1 number): ")
+            eligible = self.password_check(password)
+            if eligible == False:
+                print("Your password does not meet the requirements. "
+                      "Please try again: \n")
+                continue
+            create_pass = False
+
+        logins[username] = password
+        print(logins)
 
 def main():
     PasswordManager()
