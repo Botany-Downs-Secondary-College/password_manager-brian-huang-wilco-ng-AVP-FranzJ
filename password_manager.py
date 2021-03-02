@@ -14,14 +14,27 @@ class PasswordManager():
 
     def run(self):
         self.age_check()
-        self.create_login()
-        
+        running = True
+        while running: 
+            option = self.integer_check("What would you like to do? (Enter Number) \n"
+                                "    1. Add a new login \n"
+                                "    2. View Logins \n"
+                                "    3. Exit application \n")
 
-        
+            if option == 1:
+                self.create_login()
+            elif option == 2:
+                self.check_logins()
+            elif option == 3:
+                self.cya_lol()
+            else:
+                print("Please enter a valid option")
+            
 
     def cya_lol(self):
         print("goodbye mens))")
         exit()
+
 
     def integer_check(self, question):
         while True:
@@ -62,14 +75,14 @@ class PasswordManager():
         create_name = True
         create_pass = True
 
-        while create_name == True:
+        while create_name:
             username = input("What would you like your username to be? ")
             if username in logins:
                 print("Username %s already exists." % (username))
                 continue
             create_name = False
     
-        while create_pass == True:
+        while create_pass:
             password = input("Please input the password for the username "
                              "(Password must include at least 1 uppercase, "
                              "1 lowercase and 1 number): ")
@@ -81,10 +94,22 @@ class PasswordManager():
             create_pass = False
 
         logins[username] = password
-        print(logins)
+        print("Username and password added to logins. \n")
+
+
+    def check_logins(self):
+        if not logins:
+            print("There are no logins.")
+        else:
+            for count, i in enumerate(logins):
+                print("%s. Username: %s, Password: %s"
+                      % (count + 1, i, logins[i]))
+        print("")
+
 
 def main():
     PasswordManager()
+
 
 if __name__ == '__main__':
     main()
