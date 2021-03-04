@@ -6,20 +6,21 @@ import re
 
 logins = {}
 
+
 class PasswordManager():
     def __init__(self):
         print("Hello and welcome to pwManage")
         self.run()
-    
 
     def run(self):
         self.age_check()
         running = True
-        while running: 
-            option = self.integer_check("What would you like to do? (Enter Number) \n"
-                                "    1. Add a new login \n"
-                                "    2. View Logins \n"
-                                "    3. Exit application \n")
+        while running:
+            option = self.integer_check("What would you like to do? "
+                                        "(Enter Number) \n"
+                                        "    1. Add a new login \n"
+                                        "    2. View Logins \n"
+                                        "    3. Exit application \n")
 
             if option == 1:
                 self.create_login()
@@ -29,12 +30,10 @@ class PasswordManager():
                 self.cya_lol()
             else:
                 print("Please enter a valid option")
-            
 
     def cya_lol(self):
         print("goodbye mens))")
         exit()
-
 
     def integer_check(self, question):
         while True:
@@ -45,8 +44,7 @@ class PasswordManager():
                     continue
                 return num
             except ValueError:
-                print("Please input a valid number.")            
-        
+                print("Please input a valid number.")
 
     def age_check(self):
         age = self.integer_check("How old are you? ")
@@ -57,7 +55,6 @@ class PasswordManager():
             print("There is no way you are old enough to se this application.")
             self.cya_lol()
 
-
     def password_check(self, pw):
         password_regex = re.compile(r"""
                                     (?=.*[A-Z]) # must match atleast 1 Upper
@@ -65,12 +62,11 @@ class PasswordManager():
                                     (?=.*\d)    # must match atleast 1 Digit
                                     .{8,}       # must match 8 of the above
                                     """, re.VERBOSE)
-        if password_regex.search(pw) == None:
+        if password_regex.search(pw) is None:
             return False
         else:
             return True
 
-    
     def create_login(self):
         create_name = True
         create_pass = True
@@ -81,13 +77,13 @@ class PasswordManager():
                 print("Username %s already exists." % (username))
                 continue
             create_name = False
-    
+
         while create_pass:
             password = input("Please input the password for the username "
                              "(Password must include at least 1 uppercase, "
                              "1 lowercase and 1 number): ")
             eligible = self.password_check(password)
-            if eligible == False:
+            if not eligible:
                 print("Your password does not meet the requirements. "
                       "Please try again: \n")
                 continue
@@ -95,7 +91,6 @@ class PasswordManager():
 
         logins[username] = password
         print("Username and password added to logins. \n")
-
 
     def check_logins(self):
         if not logins:
@@ -113,5 +108,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
