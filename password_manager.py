@@ -6,6 +6,14 @@ import re
 
 logins = {}
 
+with open("logins.txt", "r") as f:
+    lines = f.readlines()
+    for line in lines:
+        f_username = line[:line.index(";")]
+        f_password = line[line.index(";") + 1:-1]
+        
+        logins[f_username] = f_password
+
 
 class PasswordManager():
     def __init__(self):
@@ -90,12 +98,16 @@ class PasswordManager():
             create_pass = False
 
         logins[username] = password
+        with open("logins.txt", "a") as f:
+            f.write("%s;%s\n" % (username, password))
+
         print("Username and password added to logins. \n")
 
     def check_logins(self):
         if not logins:
             print("There are no logins.")
         else:
+            print()
             for count, i in enumerate(logins):
                 print("%s. Username: %s, Password: %s"
                       % (count + 1, i, logins[i]))
