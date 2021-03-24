@@ -17,6 +17,9 @@ with open("logins.txt", "r") as f:
 print("Hello")
 print("test")
 
+print("Newline1")
+print("newlinetwo")
+
 class PasswordManager():
     def __init__(self):
         print("Hello and welcome to pwManage")
