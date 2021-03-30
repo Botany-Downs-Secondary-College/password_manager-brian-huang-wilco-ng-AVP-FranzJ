@@ -1,4 +1,5 @@
-user1;Password1
-sam;Zxc334cxZ
-yep;Glock-18
-coawk;SJDKLJAww1
+minecraft|user1;Password1
+snapchat|sam;Zxc334cxZ
+swag|yep;Glock-18
+youtube|coawk;SJDKLJAww1
+school|Patchigalla;Bdsc1234

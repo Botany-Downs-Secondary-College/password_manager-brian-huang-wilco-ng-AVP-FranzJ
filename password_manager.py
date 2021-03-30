@@ -9,16 +9,13 @@ logins = {}
 with open("logins.txt", "r") as f:
     lines = f.readlines()
     for line in lines:
-        f_username = line[:line.index(";")]
+        f_username = line[line.index("|") + 1:line.index(";")]
         f_password = line[line.index(";") + 1:-1]
-        
-        logins[f_username] = f_password
+        f_app = line[:line.index("|")]
+        info = [f_password, f_app]
+        logins[f_username] = info
 
-print("Hello")
-print("test")
-
-print("Newline1")
-print("newlinetwo")
+print(logins)
 
 class PasswordManager():
     def __init__(self):
@@ -65,7 +62,7 @@ class PasswordManager():
             print("You are not old enough to use this application.")
             self.cya_lol()
         elif age > 140:
-            print("There is no way you are old enough to se this application.")
+            print("There is no way you are this old.")
             self.cya_lol()
 
     def password_check(self, pw):
@@ -85,6 +82,7 @@ class PasswordManager():
         create_pass = True
 
         while create_name:
+            application = input("What app is the login going to be for? ")
             username = input("What would you like your username to be? ")
             if username in logins:
                 print("Username %s already exists." % (username))
@@ -102,9 +100,10 @@ class PasswordManager():
                 continue
             create_pass = False
 
-        logins[username] = password
+        info = [password, application]
+        logins[username] = info
         with open("logins.txt", "a") as f:
-            f.write("%s;%s\n" % (username, password))
+            f.write("%s|%s;%s\n" % (application, username, password))
 
         print("Username and password added to logins. \n")
 
@@ -114,8 +113,8 @@ class PasswordManager():
         else:
             print()
             for count, i in enumerate(logins):
-                print("%s. Username: %s, Password: %s"
-                      % (count + 1, i, logins[i]))
+                print("%s. App: %s, Username: %s, Password: %s"
+                      % (count + 1, logins[i][1], i, logins[i][0]))
         print("")
 
 
