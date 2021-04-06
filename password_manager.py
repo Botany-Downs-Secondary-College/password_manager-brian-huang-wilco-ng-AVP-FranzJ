@@ -16,6 +16,9 @@ with open("logins.txt", "r") as f:
         logins[f_username] = info
 
 print(logins)
+print("Hello World")
+print("test1234123")
+print("Wilco is for sure cool.")
 
 class PasswordManager():
     def __init__(self):
